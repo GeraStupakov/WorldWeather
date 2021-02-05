@@ -1,11 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "rain-man.png",
+      "filename" : "cloud-bolt.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "cloud-bolt@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

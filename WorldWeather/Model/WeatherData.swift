@@ -13,6 +13,7 @@ struct WeatherData: Decodable {
     let wind: Wind
     let weather: [Weather]
     let sys: Sys
+    let dt: Double
 }
 
 struct Main: Decodable {
@@ -22,7 +23,7 @@ struct Main: Decodable {
 }
 
 struct Wind: Decodable {
-    let speed: Int
+    let speed: Double
 }
 
 struct Weather: Decodable {

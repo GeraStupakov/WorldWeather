@@ -14,31 +14,44 @@ struct WeatherModel {
     let description: String
     let pressure: Int
     let humidity: Int
-    let windSpeed: Int
+    let windSpeed: Double
     let countryCode: String
+    let date: Double
     
-    var temperatureString: String{
+    var temperatureString: String {
         return String(format: "%.0f", temperature)
     }
+    
+    var windSpeedString: String {
+        return String(format: "%.1f", windSpeed)
+    }
+    
+    var convertedDate: String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: Date(timeIntervalSince1970: date))
+    }
+    
     
     var imageWeather: String {
         switch idWeather {
         case 200...232:
-            return "cloud.bolt.rain"
+            return "rain.bold"
         case 300...321:
-            return "cloud.heavyrain"
+            return "heavy-rain"
         case 500...531:
-            return "cloud.rain"
+            return "rain"
         case 600...622:
             return "snow"
         case 701...781:
-            return "cloud.fog"
+            return "fog"
         case 800:
-            return "sun.max"
+            return "sun"
         case 801:
-            return "cloud.sun"
+            return "sun-cloud"
         case 802...804:
-            return "cloud.bolt"
+            return "cloud-bolt"
         default:
             return "cloud"
         }

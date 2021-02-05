@@ -10,6 +10,7 @@ import CoreLocation
 
 protocol WeatherManagerDelegate {
     func updateWeather(_ weatherManager: WeatherManager, weatherData: WeatherModel)
+    func errorManager(error: Error)
 }
 
 struct WeatherManager {
@@ -17,6 +18,11 @@ struct WeatherManager {
     var delegate: WeatherManagerDelegate?
     
     let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=6116d0edac0cc71d59463248bcba2919&units=metric"
+    
+    func fetchNameWeather(cityName: String) {
+        let urlString = "\(weatherURL)&q=\(cityName)"
+        performRequest(urlString)
+    }
     
     func fetchGpsWeather(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
         let urlString = "\(weatherURL)&lat=\(latitude)&lon=\(longitude)"
@@ -29,7 +35,7 @@ struct WeatherManager {
         let session = URLSession(configuration: .default)
         let task = session.dataTask(with: url) { (data, response, error) in
             if error != nil {
-                print(error!)
+                delegate?.errorManager(error: error!)
                 return
             }
             if let safeData = data {
@@ -54,12 +60,13 @@ struct WeatherManager {
             let humidity = decoderData.main.humidity
             let speed = decoderData.wind.speed
             let country = decoderData.sys.country
+            let date = decoderData.dt
             
-            let weatherModel = WeatherModel(idWeather: id, cityName: name, temperature: temp, description: description, pressure: pressure, humidity: humidity, windSpeed: speed, countryCode: country)
+            let weatherModel = WeatherModel(idWeather: id, cityName: name, temperature: temp, description: description, pressure: pressure, humidity: humidity, windSpeed: speed, countryCode: country, date: date)
             
             return weatherModel
         } catch {
-            print(error)
+            delegate?.errorManager(error: error)
             return nil
         }
     }
