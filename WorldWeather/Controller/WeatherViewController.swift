@@ -79,7 +79,7 @@ extension WeatherViewController: WeatherManagerDelegate {
             self.countryLabel.text = weatherData.countryCode
             self.humidityLabel.text = "\(String(weatherData.humidity)) %"
             self.pressureLabel.text = "\(String(weatherData.pressure)) hPa"
-            self.windSpeedLabel.text = "\(weatherData.windSpeedString) kmH"
+            self.windSpeedLabel.text = "\(weatherData.windSpeedString) m/s"
             self.weatherDescriptionLabel.text = weatherData.description
             self.weatherImage.image = UIImage(named: weatherData.imageWeather)
             self.dateLabel.text = weatherData.convertedDate

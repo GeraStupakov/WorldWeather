@@ -51,9 +51,9 @@ struct WeatherModel {
         case 801:
             return "sun-cloud"
         case 802...804:
-            return "cloud-bolt"
-        default:
             return "cloud"
+        default:
+            return "cloud-bold"
         }
     }
     
