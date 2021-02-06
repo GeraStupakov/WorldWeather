@@ -42,6 +42,24 @@ class WeatherViewController: UIViewController {
         searchTextField.endEditing(true)
     }
     
+    //MARK - add new weather location
+    @IBAction func AddWeatherLocaiton(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Add weather location?", message: "", preferredStyle: .alert)
+        
+//        let alertActionAdd = UIAlertAction(title: "Add", style: .default) { (alertActionAdd) in
+//            <#code#>
+//        }
+//
+//        let alertActionCancel = UIAlertAction(title: "Cancel", style: .default) { (alertActionCancel) in
+//            <#code#>
+//        }
+//
+//        alert.addAction(alertActionAdd)
+//        alert.addAction(alertActionCancel)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func locationPressed(_ sender: UIButton) {
         location.requestLocation()
     }

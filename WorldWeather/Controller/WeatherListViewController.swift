@@ -6,16 +6,13 @@
 //
 
 import UIKit
+import CoreData
+
+var listArray = [WheatherItem]()
 
 class WeatherListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    var listArray: [CellModel] = [
-        CellModel(city: "Minsk", country: "BY", description: "Rainy", temp: "1"),
-        CellModel(city: "Paris", country: "FRA", description: "Rainy", temp: "4"),
-        CellModel(city: "Oslo", country: "NRW", description: "Rainy", temp: "-1")
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +35,8 @@ extension WeatherListViewController: UITableViewDataSource, UITableViewDelegate 
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReusableCell", for: indexPath) as! WeatherCell
         
-        cell.cityLabel.text = "\(listArray[indexPath.row].city), \(listArray[indexPath.row].country)"
+        cell.cityLabel.text = "\(listArray[indexPath.row].city!),  \(listArray[indexPath.row].country!)"
+        
         return cell
     }
     
