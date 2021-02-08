@@ -39,9 +39,9 @@ struct WeatherModel {
         case 200...232:
             return "rain.bold"
         case 300...321:
-            return "heavy-rain"
-        case 500...531:
             return "rain"
+        case 500...531:
+            return "heavy-rain"
         case 600...622:
             return "snow"
         case 701...781:
