@@ -28,11 +28,10 @@ struct WeatherModel {
     
     var convertedDate: String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
+        dateFormatter.dateStyle = .full
         dateFormatter.timeStyle = .none
         return dateFormatter.string(from: Date(timeIntervalSince1970: date))
     }
-    
     
     var imageWeather: String {
         switch idWeather {

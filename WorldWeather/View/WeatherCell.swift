@@ -17,7 +17,7 @@ class WeatherCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        viewLabel.layer.cornerRadius = viewLabel.frame.size.height / 2
+        viewLabel.layer.cornerRadius = viewLabel.frame.size.height / 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

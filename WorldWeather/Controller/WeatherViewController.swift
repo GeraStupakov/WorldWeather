@@ -11,6 +11,8 @@ import CoreData
 
 class WeatherViewController: UIViewController {
     
+    var tempArray = [String]()
+    
     var weatherManager = WeatherManager()
     let location = CLLocationManager()
     
@@ -93,12 +95,9 @@ class WeatherViewController: UIViewController {
         } catch {
             print(error.localizedDescription)
         }
-    }
-    
-    // Update core data
-    func updateData() {
-        
-      //  weatherlistArray[0].setValue(<#T##value: Any?##Any?#>, forKey: "temp")
+        DispatchQueue.main.async {
+            self.weatherManager.performRequestDS()
+        }
     }
     
     
@@ -108,7 +107,7 @@ class WeatherViewController: UIViewController {
     
     @IBAction func openWeatherList(_ sender: UIButton) {
         self.performSegue(withIdentifier: "goToWeatherList", sender: self)
-        
+        loadWeatherItem()
     }
     
 }
@@ -144,8 +143,8 @@ extension WeatherViewController: UITextFieldDelegate {
         } else {
             searchTextField.text = cityLabel.text
             searchTextField.placeholder = "Enter city"
-            return true
         }
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -159,24 +158,25 @@ extension WeatherViewController: UITextFieldDelegate {
 
     // MARK - WeatherManagerDelegate
 extension WeatherViewController: WeatherManagerDelegate {
-
-func updateWeather(_ weatherManager: WeatherManager, weatherData: WeatherModel) {
-    DispatchQueue.main.async {
-        self.temperatureLabel.text = "\(weatherData.temperatureString)°"
-        self.cityLabel.text = weatherData.cityName
-        self.countryLabel.text = weatherData.countryCode
-        self.humidityLabel.text = "\(String(weatherData.humidity)) %"
-        self.pressureLabel.text = "\(String(weatherData.pressure)) hPa"
-        self.windSpeedLabel.text = "\(weatherData.windSpeedString) m/s"
-        self.weatherDescriptionLabel.text = weatherData.description
-        self.weatherImage.image = UIImage(named: weatherData.imageWeather)
-        self.dateLabel.text = weatherData.convertedDate
+    
+    func updateWeather(_ weatherManager: WeatherManager, weatherModel: WeatherModel) {
+        DispatchQueue.main.async {
+            self.temperatureLabel.text = "\(weatherModel.temperatureString)°"
+            self.cityLabel.text = weatherModel.cityName
+            self.countryLabel.text = weatherModel.countryCode
+            self.humidityLabel.text = "\(String(weatherModel.humidity)) %"
+            self.pressureLabel.text = "\(String(weatherModel.pressure)) hPa"
+            self.windSpeedLabel.text = "\(weatherModel.windSpeedString) m/s"
+            self.weatherDescriptionLabel.text = weatherModel.description
+            self.weatherImage.image = UIImage(named: weatherModel.imageWeather)
+            self.dateLabel.text = (weatherModel.convertedDate)
+        }
     }
-}
     
     func errorManager(error: Error) {
         print(error.localizedDescription)
     }
+    
 }
 
     // MARK - WeatherListDelegate
